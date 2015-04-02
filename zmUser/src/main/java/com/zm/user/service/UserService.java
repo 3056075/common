@@ -1,8 +1,8 @@
 package com.zm.user.service;
 
-import com.zm.mbweb.entity.User;
-import com.zm.zmcore.exception.ZmException;
-import com.zm.zmcore.pagination.BasePagination;
+import com.zm.common.exception.ZmException;
+import com.zm.common.pagination.BasePagination;
+import com.zm.user.entity.User;
 
 public interface UserService {
 	public User findByUsername(String username);
@@ -15,7 +15,4 @@ public interface UserService {
 	
 	public void saveUser(String username,String password,String name);
 	public void update(User user);
-	public String sendValidcode();
-	
-	public Boolean getFreeStatus(Integer userId);
 }

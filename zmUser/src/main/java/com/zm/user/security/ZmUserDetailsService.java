@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.zm.mbweb.dao.UserDao;
-import com.zm.mbweb.entity.User;
+import com.zm.user.dao.UserDao;
+import com.zm.user.entity.User;
 @Service("zmUserDetailsService")
 public class ZmUserDetailsService implements UserDetailsService{
 	@Autowired

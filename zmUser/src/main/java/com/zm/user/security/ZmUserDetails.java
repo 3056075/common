@@ -8,8 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.zm.mbweb.entity.Role;
-import com.zm.mbweb.entity.User;
+import com.zm.user.entity.Role;
+import com.zm.user.entity.User;
 
 public class ZmUserDetails extends User implements UserDetails {
 

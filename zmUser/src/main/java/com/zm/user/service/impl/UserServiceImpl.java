@@ -1,28 +1,22 @@
 package com.zm.user.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.mb.mbface.ientity.BaseResponse;
-import com.zm.mbweb.common.CommonConstant;
-import com.zm.mbweb.dao.UserDao;
-import com.zm.mbweb.dao.UserRoleDao;
-import com.zm.mbweb.entity.Role;
-import com.zm.mbweb.entity.User;
-import com.zm.mbweb.entity.UserRole;
-import com.zm.mbweb.security.ZmUserDetails;
-import com.zm.mbweb.service.UserService;
-import com.zm.mbweb.utils.MBDateUtils;
-import com.zm.zmcore.exception.ZmException;
-import com.zm.zmcore.pagination.BasePagination;
-import com.zm.zmcore.utils.StringUtils;
+import com.zm.common.exception.ZmException;
+import com.zm.common.pagination.BasePagination;
+import com.zm.common.utils.StringUtils;
+import com.zm.user.dao.UserDao;
+import com.zm.user.dao.UserRoleDao;
+import com.zm.user.entity.Role;
+import com.zm.user.entity.User;
+import com.zm.user.entity.UserRole;
+import com.zm.user.security.ZmUserDetails;
+import com.zm.user.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -112,27 +106,11 @@ public class UserServiceImpl implements UserService {
 		userRoleDao.save(userRole);
 	}
 
-	@Override
-	public String sendValidcode() {
-		return RandomStringUtils.randomNumeric(4);
-	}
+
 
 	@Override
 	public void update(User user) {
 		userDao.update(user);
 	}
 
-	@Override
-	public Boolean getFreeStatus(Integer userId) {
-		User currentUser = this.findByUserId(userId);
-		Date lastFree=currentUser.getLastFree();
-		if(lastFree==null){
-			return true;
-		}else{
-			Date now = new Date();
-			Date lastMon = MBDateUtils.getLastMon(now);
-			Date LastFreeMon = MBDateUtils.getLastMon(lastFree);
-			return !DateUtils.isSameDay(lastMon, LastFreeMon);
-		}
-	}
 }

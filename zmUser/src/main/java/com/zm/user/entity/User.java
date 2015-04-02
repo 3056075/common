@@ -43,23 +43,25 @@ public class User implements Serializable {
 	protected Integer userId;
 	protected String username;
 	protected String password;
+	protected String name;
+	protected String nickName;
+	protected String sex;	
 	protected String email;
 	protected String mobile;
 	protected String telephone;
-	protected Short status;
-	protected String name;
+	protected String headImgurl;
+	
+	protected Short status;	
 	protected Date lastLoginTime;
 	protected String lastLoginIp;
+	protected Integer version;
 	protected Integer createBy;
 	protected Date updateTime;
 	protected Date createTime;
-	protected Date lastFree;//最后一次享受过免费洗车时间
 	//
 	protected Set<Role> roles;
-	protected Set<Car> cars;
-	protected Set<CarAddr> carAddrs;
-	protected Set<Porder> porders;
-	protected Set<Remark> remarks;
+	//
+	protected Set<Oauth> oauths;
 	//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -86,6 +88,38 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getHeadImgurl() {
+		return headImgurl;
+	}
+
+	public void setHeadImgurl(String headImgurl) {
+		this.headImgurl = headImgurl;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 
 	public String getEmail() {
@@ -170,13 +204,7 @@ public class User implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public Date getLastFree() {
-		return lastFree;
-	}
 
-	public void setLastFree(Date lastFree) {
-		this.lastFree = lastFree;
-	}
 
 	//
 	@ManyToMany(targetEntity = Role.class,fetch = FetchType.LAZY)
@@ -188,39 +216,15 @@ public class User implements Serializable {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-
+	
 	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-	@OrderBy("carId")
-	public Set<Car> getCars() {
-		return cars;
+	@OrderBy("type")
+	public Set<Oauth> getOauths() {
+		return oauths;
 	}
 
-	public void setCars(Set<Car> cars) {
-		this.cars = cars;
-	}
-	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-	public Set<CarAddr> getCarAddrs() {
-		return carAddrs;
-	}
-
-	public void setCarAddrs(Set<CarAddr> carAddrs) {
-		this.carAddrs = carAddrs;
-	}
-	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-	public Set<Porder> getPorders() {
-		return porders;
-	}
-
-	public void setPorders(Set<Porder> porders) {
-		this.porders = porders;
-	}
-	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-	public Set<Remark> getRemarks() {
-		return remarks;
-	}
-
-	public void setRemarks(Set<Remark> remarks) {
-		this.remarks = remarks;
+	public void setOauths(Set<Oauth> oauths) {
+		this.oauths = oauths;
 	}
 
 }
