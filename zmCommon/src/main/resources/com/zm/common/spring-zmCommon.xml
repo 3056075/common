@@ -102,7 +102,7 @@
 	<aop:config expose-proxy="true">
 		<!-- 只对业务逻辑层实施事务 -->
 		<aop:pointcut id="txPointcut" 
-			expression="( execution(* com.zm..impl..*.*(..)) or execution(* com.zm.mbweb.action.face.ProcessPorderAdd.processSync(..)) )" />
+			expression="( execution(* com.zm..impl..*.*(..)) )" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
 	</aop:config>
 </beans>

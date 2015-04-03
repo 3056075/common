@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd   
+    http://www.springframework.org/schema/security   
+    http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<http auto-config="true">
+		<form-login login-processing-url="/z_login_check.htm"
+			username-parameter="z_username" password-parameter="z_password"
+			login-page="/login.htm" authentication-failure-url="/login.htm?error=1"			
+			always-use-default-target="true" default-target-url="/index.htm" />
+		<logout logout-url="/z_logout.htm" logout-success-url="/" />
+		<access-denied-handler error-page="/login.htm?error=2"/>
+		<!-- 
+		<session-management invalid-session-url="/login.htm?error=3"/>
+		
+		<intercept-url pattern="/img/**" filters="none" />
+		<intercept-url pattern="/js/**" filters="none" />
+		<intercept-url pattern="/css/**" filters="none" />
+		<intercept-url pattern="/login.htm" filters="none" /> -->
+		 
+		<custom-filter ref="zmFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+	</http>
+	<!-- 配置自己的拦截器 -->
+	<beans:bean id="zmFilter"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="autheticationManager"></beans:property>
+		<beans:property name="accessDecisionManager">
+			<beans:bean
+				class="org.springframework.security.access.vote.AffirmativeBased">
+				<beans:property name="decisionVoters">
+					<beans:list>
+						<beans:bean class="org.springframework.security.access.vote.RoleVoter" />
+					</beans:list>
+				</beans:property>
+			</beans:bean>
+		</beans:property>
+		<beans:property name="securityMetadataSource" ref="zmSecurityMetadataSource" />
+	</beans:bean>
+	<authentication-manager alias="autheticationManager">
+		<authentication-provider user-service-ref="zmUserDetailsService">
+			<password-encoder hash="md5">
+				<salt-source user-property="username" />
+			</password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>
