@@ -1,5 +1,5 @@
 package com.zm.common.face;
 
-public interface BaseRequest<T extends BaseResponse> {
-	public String faceCode();
+public abstract class BaseRequest<T extends BaseResponse> {
+	 public abstract String faceCode();
 }

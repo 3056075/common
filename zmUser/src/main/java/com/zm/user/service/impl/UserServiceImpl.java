@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 			userDetails = (ZmUserDetails) SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal();
 		} catch (Exception e) {
-			throw new ZmException(BaseResponse.CODE_LOGIN);
+			throw new ZmException("用户未登陆");
 		}
 		return userDetails;
 	}
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
 		UserRole userRole = new UserRole();
 		userRole.setUser(user);
 		Role commRole = new Role();
-		commRole.setRoleId(CommonConstant.ROLE_USER);
+		commRole.setRoleId(1);
 		userRole.setRole(commRole);
 		userRoleDao.save(userRole);
 	}
