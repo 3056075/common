@@ -6,6 +6,9 @@ import java.util.Date;
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -40,6 +43,9 @@ public class Oauth implements Serializable {
 	protected Date createTime;
 	//
 	protected User user;
+	//
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public Integer getOauthId() {
 		return oauthId;
 	}
