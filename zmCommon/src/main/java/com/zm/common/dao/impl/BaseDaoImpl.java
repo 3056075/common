@@ -23,7 +23,7 @@ import com.zm.common.utils.StringUtils;
 public class BaseDaoImpl<T> implements BaseDao<T> {
 	private SessionFactory sessionFactory;
 	
-	private Class<T> getPersistentClass(){
+	protected Class<T> getPersistentClass(){
 		return (Class<T>) ReflectUtils.getSuperClassGenricType(getClass(), 0); 
 	}
 	
