@@ -21,7 +21,9 @@ import javax.persistence.Table;
 public class Role implements Serializable {
 
 	private static final long serialVersionUID = 2763018414975436611L;
-
+	public static final Integer ROLEID_ADMIN = 1;//默认管理员角色ID
+	public static final Integer ROLEID_USER = 2;//默认普通 用户角色ID
+	
 	public static final Short STATUS_NORMAL = 1;
 	public static final Short STATUS_INACTIVE = 0;
 	public static final Short[] STATUSES = new Short[] { STATUS_NORMAL,

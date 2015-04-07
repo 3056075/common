@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
 		UserRole userRole = new UserRole();
 		userRole.setUser(user);
 		Role commRole = new Role();
-		commRole.setRoleId(1);
+		commRole.setRoleId(Role.ROLEID_USER);
 		userRole.setRole(commRole);
 		userRoleDao.save(userRole);
 	}
