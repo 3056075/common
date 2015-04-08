@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Cacheable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -88,6 +89,8 @@ public class Oauth implements Serializable {
 	public void setExpires(Integer expires) {
 		this.expires = expires;
 	}
+
+	@Column(updatable = false)
 	public Date getUpdateTime() {
 		return updateTime;
 	}
@@ -100,6 +103,8 @@ public class Oauth implements Serializable {
 	public void setTokenCreateTime(Date tokenCreateTime) {
 		this.tokenCreateTime = tokenCreateTime;
 	}
+
+	@Column(updatable = false)
 	public Date getCreateTime() {
 		return createTime;
 	}
