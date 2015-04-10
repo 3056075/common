@@ -38,6 +38,8 @@ public class Oauth implements Serializable {
 	protected String account;
 	protected String code;
 	protected String token;
+	protected String refreshToken;
+	protected String unionid;
 	protected Integer expires;
 	protected Date updateTime;
 	protected Date tokenCreateTime;
@@ -82,6 +84,18 @@ public class Oauth implements Serializable {
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	public String getRefreshToken() {
+		return refreshToken;
+	}
+	public void setRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
+	}
+	public String getUnionid() {
+		return unionid;
+	}
+	public void setUnionid(String unionid) {
+		this.unionid = unionid;
 	}
 	public Integer getExpires() {
 		return expires;
