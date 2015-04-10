@@ -10,7 +10,7 @@ import com.zm.common.face.BaseResponse;
 
 
 public abstract class IProcessBase {
-	public abstract BaseResponse process(String data,HttpServletRequest request) throws ZmException;
+	public abstract BaseResponse useProcess(String data,HttpServletRequest request) throws ZmException;
 	
 	protected <T extends BaseRequest<? extends BaseResponse>> T convertData(String data,Class<T> clazz) throws ZmException {
 		try {

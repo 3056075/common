@@ -75,7 +75,7 @@ public class FaceController {
 				throw new ZmException(BaseResponse.CODE_FACEERROR);					
 			}
 			//
-			return process.process(data,request);
+			return process.useProcess(data,request);
 		}catch (ZmException e) {
 			baseResponse.setCode(e.getOrgMessage());
 			baseResponse.setMessage(e.getMessage());
