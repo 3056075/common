@@ -209,6 +209,13 @@ public class BasePagination<T> implements Serializable {
 			this.currentPage = currentPage;
 		}
 	}
+	
+	public void putParam(String key,String val){
+		if(null==params){
+			params = new HashMap<String,String>();
+		}
+		params.put(key, val);
+	}
 
 	public Integer getLimit() {
 		return limit;

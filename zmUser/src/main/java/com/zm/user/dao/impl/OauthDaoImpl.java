@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.zm.common.dao.impl.BaseDaoImpl;
+import com.zm.common.pagination.BasePagination;
 import com.zm.user.dao.OauthDao;
 import com.zm.user.entity.Oauth;
 
@@ -49,6 +50,39 @@ public class OauthDaoImpl extends BaseDaoImpl<Oauth> implements OauthDao {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public Long searchOauthCount(BasePagination<Oauth> page) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		StringBuilder hql = new StringBuilder("select count(*)");
+		searchOauthBase(hql, params, page);
+		return this.count(hql.toString(), params);
+	}
+
+	@Override
+	public List<Oauth> searchOauth(BasePagination<Oauth> page) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		StringBuilder hql = new StringBuilder("select o");
+		searchOauthBase(hql, params, page);
+		this.appendSort(hql, "o", page);
+		return this.find(hql.toString(), params, page.getCurrentPage(),
+				page.getLimit());
+	}
+	
+	private void searchOauthBase(StringBuilder hql,
+			Map<String, Object> params, BasePagination<Oauth> page) {
+		hql.append(" from Oauth o");
+		hql.append(" where 1=1");
+		String type = null;
+		if(null != page && null != page.getParams()){
+			type = page.getParams().get("type");
+		}
+		if (StringUtils.isNotBlank(type)) {
+			hql.append(" and o.type = :type");
+			params.put("type", new Short(type));
+		}
+
 	}
 
 }

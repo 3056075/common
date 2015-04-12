@@ -1,6 +1,7 @@
 package com.zm.user.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,7 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zm.common.constant.StringConstant;
 import com.zm.common.exception.ZmException;
+import com.zm.common.pagination.BasePagination;
+import com.zm.common.utils.StringUtils;
 import com.zm.user.dao.OauthDao;
 import com.zm.user.dao.UserDao;
 import com.zm.user.dao.UserRoleDao;
@@ -122,6 +126,20 @@ public class OauthServiceImpl implements OauthService {
 	@Override
 	public String getDefaultPassword() {
 		return "defaultPassword";
+	}
+
+	@Override
+	public void searchOauth(BasePagination<Oauth> page) {
+		if (StringUtils.isBlank(page.getSort())) {
+			page.setSort("createTime");
+			page.setDir(StringConstant.DESC);
+		}
+		if (page.isNeedSetTotal()) {
+			Long count = oauthDao.searchOauthCount(page);
+			page.setTotal(count.intValue());
+		}
+		List<Oauth> result = oauthDao.searchOauth(page);
+		page.setResult(result);
 	}
 
 }
