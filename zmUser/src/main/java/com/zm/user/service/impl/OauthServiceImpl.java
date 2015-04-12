@@ -1,5 +1,7 @@
 package com.zm.user.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -55,7 +57,7 @@ public class OauthServiceImpl implements OauthService {
 				if (oauth == null) {
 					// add
 					String defaultUsername = getDefaultUsername(userinfo
-							.getOpenid());
+							.getOpenid(),Oauth.TYPE_WEIXIN);
 					String defaultPassword = getDefaultPassword();
 					String md5Password = new Md5PasswordEncoder()
 							.encodePassword(defaultPassword, defaultUsername);
@@ -65,6 +67,7 @@ public class OauthServiceImpl implements OauthService {
 					user.setName(userinfo.getNickname());
 					user.setNickName(userinfo.getNickname());
 					user.setHeadImgurl(userinfo.getHeadimgurl());
+					user.setSex(userinfo.getSex());
 					user.setStatus(User.STATUS_NORMAL);
 					userDao.save(user);
 					UserRole userRole = new UserRole();
@@ -77,8 +80,13 @@ public class OauthServiceImpl implements OauthService {
 					oauth = new Oauth();
 					oauth.setUser(user);
 					oauth.setType(Oauth.TYPE_WEIXIN);
+					oauth.setCode(code);
+					oauth.setToken(tokenGet.getAccess_token());
+					oauth.setExpires(tokenGet.getExpires_in());
+					oauth.setRefreshToken(tokenGet.getRefresh_token());
+					oauth.setUnionid(userinfo.getUnionid());
 					oauth.setOpenid(userinfo.getOpenid());
-					//TODO
+					oauth.setTokenCreateTime(new Date());
 					oauthDao.save(oauth);	
 				} else {
 					// refresh nickname and headurl
@@ -87,6 +95,14 @@ public class OauthServiceImpl implements OauthService {
 					user.setNickName(userinfo.getNickname());
 					user.setHeadImgurl(userinfo.getHeadimgurl());
 					userDao.save(user);
+					oauth.setCode(code);
+					oauth.setToken(tokenGet.getAccess_token());
+					oauth.setExpires(tokenGet.getExpires_in());
+					oauth.setRefreshToken(tokenGet.getRefresh_token());
+					oauth.setUnionid(userinfo.getUnionid());
+					oauth.setOpenid(userinfo.getOpenid());
+					oauth.setTokenCreateTime(new Date());
+					oauthDao.save(oauth);	
 				}
 			}
 		}
@@ -99,8 +115,8 @@ public class OauthServiceImpl implements OauthService {
 	}
 
 	@Override
-	public String getDefaultUsername(String oid) {
-		return "DEF_" + oid;
+	public String getDefaultUsername(String oid,Short oauthType) {
+		return "DEF_"+oauthType+"_" + oid;
 	}
 
 	@Override

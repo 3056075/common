@@ -45,7 +45,7 @@ public class User implements Serializable {
 	protected String password;
 	protected String name;
 	protected String nickName;
-	protected String sex;	
+	protected Short sex;	
 	protected String email;
 	protected String mobile;
 	protected String telephone;
@@ -98,11 +98,11 @@ public class User implements Serializable {
 		this.nickName = nickName;
 	}
 
-	public String getSex() {
+	public Short getSex() {
 		return sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(Short sex) {
 		this.sex = sex;
 	}
 

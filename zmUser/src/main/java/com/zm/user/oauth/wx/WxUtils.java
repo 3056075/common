@@ -20,10 +20,10 @@ public class WxUtils {
 				+ "&grant_type=authorization_code";
 //		return execute(url, TokenGetResponse.class);
 		TokenGetResponse response = new TokenGetResponse();
-		response.setAccess_token("at");
+		response.setAccess_token("at" + code);
 		response.setExpires_in(10);
-		response.setOpenid("oid123123");
-		response.setRefresh_token("atr");
+		response.setOpenid("oid" + code);
+		response.setRefresh_token("atr" + code);
 		return response;
 	}
 
@@ -49,11 +49,11 @@ public class WxUtils {
 				+ accessToken + "&openid=" + openid;
 //		return execute(url, UserinfoGetResponse.class);
 		UserinfoGetResponse response = new UserinfoGetResponse();
-		response.setHeadimgurl("http://headimg");
-		response.setNickname("nickname1");
+		response.setHeadimgurl("http://headimg"+openid);
+		response.setNickname("nickname"+openid);
 		response.setOpenid(openid);
 		response.setSex((short)1);
-		response.setUnionid("uid");
+		response.setUnionid("uid"+openid);
 		return response;
 	}
 	
