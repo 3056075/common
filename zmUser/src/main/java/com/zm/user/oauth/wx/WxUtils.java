@@ -18,13 +18,13 @@ public class WxUtils {
 		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="
 				+ appid + "&secret=" + secret + "&code=" + code
 				+ "&grant_type=authorization_code";
-//		return execute(url, TokenGetResponse.class);
-		TokenGetResponse response = new TokenGetResponse();
-		response.setAccess_token("at" + code);
-		response.setExpires_in(10);
-		response.setOpenid("oid" + code);
-		response.setRefresh_token("atr" + code);
-		return response;
+		return execute(url, TokenGetResponse.class);
+//		TokenGetResponse response = new TokenGetResponse();
+//		response.setAccess_token("at" + code);
+//		response.setExpires_in(10);
+//		response.setOpenid("oid" + code);
+//		response.setRefresh_token("atr" + code);
+//		return response;
 	}
 
 	public static TokenGetResponse refreshAccessToken(String appid, String refreshToken)
@@ -47,14 +47,14 @@ public class WxUtils {
 			String openid) throws ZmException {
 		String url = "https://api.weixin.qq.com/sns/userinfo?access_token="
 				+ accessToken + "&openid=" + openid;
-//		return execute(url, UserinfoGetResponse.class);
-		UserinfoGetResponse response = new UserinfoGetResponse();
-		response.setHeadimgurl("http://headimg"+openid);
-		response.setNickname("nickname"+openid);
-		response.setOpenid(openid);
-		response.setSex((short)1);
-		response.setUnionid("uid"+openid);
-		return response;
+		return execute(url, UserinfoGetResponse.class);
+//		UserinfoGetResponse response = new UserinfoGetResponse();
+//		response.setHeadimgurl("http://headimg"+openid);
+//		response.setNickname("nickname"+openid);
+//		response.setOpenid(openid);
+//		response.setSex((short)1);
+//		response.setUnionid("uid"+openid);
+//		return response;
 	}
 	
 	public static <T> T execute(String url, Class<T> clazz) throws ZmException {
